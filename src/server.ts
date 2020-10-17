@@ -1,18 +1,11 @@
-import { ApolloServer, gql } from 'apollo-server'
+import { ApolloServer } from 'apollo-server'
+import typeDefs from './schema'
+import resolvers from './resolvers'
 
-const server = new ApolloServer({
-  typeDefs: gql`
-    type Query {
-      name: String!
-    }
-  `,
-  resolvers: {
-    Query: {
-      name: (): string => 'Mark'
-    }
-  }
-})
+export default async () => {
+  return new ApolloServer({
+    typeDefs,
+    resolvers: await resolvers
+  })
+}
 
-server.listen().then(({ url }) => {
-  console.log(`🚀 Server ready at ${url}`);
-});
