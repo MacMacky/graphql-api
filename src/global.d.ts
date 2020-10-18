@@ -1,9 +1,22 @@
 import _Bluebird from 'bluebird'
+import { ReqlClient } from 'rethinkdbdash'
+import { InsertResult, UpdateOptions, DeleteResult, UpdateResult, ArrayResult } from 'rethinkdbdash/node_modules/@types/rethinkdb'
 
 type Gender = 'male' | 'female' | 'unknown'
 type _Date = Date | string
 
+
+
+
 declare global {
+  export interface RethinkQry {
+    create(data: {} | any, tableName: string): Promise<InsertResult<unknown>>
+    findById<T>(id: string, tableName: string): Promise<T | null>
+    findByIndex<T = unknown>(indices: string[] | string, index: string, tableName: string): Promise<ArrayResult<T>>
+    findByFilter<T = unknown>(filterData: {} | Function, tableName: string, orderBy?: string): Promise<ArrayResult<T>>
+    updateById<T>(id: string, data: {}, tableName: string, opts?: UpdateOptions): Promise<UpdateResult<unknown> | T>
+    deleteById<T>(id: string, tableName: string, opts?: UpdateOptions): Promise<DeleteResult<unknown> | DeleteResult<T>>
+  }
 
   export interface Student {
     id: string
@@ -66,7 +79,8 @@ declare global {
   export type InputClass = Omit<Class, 'id'>
 
   var Bluebird: typeof _Bluebird
-
+  var Query: RethinkQry
+  var r: ReqlClient
 }
 
 
