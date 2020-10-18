@@ -15,12 +15,16 @@ declare global {
     updated_at: _Date
   }
 
+  export type InputStudent = Omit<Student, 'id' | 'created_at' | 'updated_at'>
+
   export interface Enrollment {
     id: string
     student_id: string
     course_id: string
     enrolled_on: _Date
   }
+
+  export type InputEnrollment = Omit<Enrollment, 'id'>
 
   export interface Teacher {
     id: string
@@ -33,16 +37,22 @@ declare global {
     updated_at: _Date
   }
 
+  export type InputTeacher = Omit<Teacher, 'id' | 'created_at' | 'updated_at'>
+
   export interface Course {
     id: string
     name: string
     credits: number
   }
 
+  export type InputCourse = Omit<Course, 'id'>
+
   export interface Department {
     id: string
     name: string
   }
+
+  export type InputDepartment = Omit<Department, 'id'>
 
   export interface Class {
     id: string
@@ -52,6 +62,8 @@ declare global {
     start_time: _Date
     end_time: _Date
   }
+
+  export type InputClass = Omit<Class, 'id'>
 
   var Bluebird: typeof _Bluebird
 
