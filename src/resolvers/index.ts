@@ -3,7 +3,7 @@ import fs from 'fs'
 const readDir = Bluebird.promisify<string[], string>(fs.readdir)
 
 export default Bluebird.reduce(readDir(__dirname), async (resolvers, module) => {
-  const file = module.split('.js').shift() as string
+  const file = module.split(/\.(js|ts)/).shift() as string
   if (!file.includes('index')) {
     return {
       ...resolvers,
