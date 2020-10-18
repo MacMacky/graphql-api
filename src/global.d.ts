@@ -4,8 +4,7 @@ import { InsertResult, UpdateOptions, DeleteResult, UpdateResult, ArrayResult } 
 
 type Gender = 'male' | 'female' | 'unknown'
 type _Date = Date | string
-
-
+type OmitInputTypes = 'id' | 'created_at' | 'updated_at'
 
 
 declare global {
@@ -16,59 +15,56 @@ declare global {
     findByFilter<T = unknown>(filterData: {} | Function, tableName: string, orderBy?: string): Promise<ArrayResult<T>>
     updateById<T>(id: string, data: {}, tableName: string, opts?: UpdateOptions): Promise<UpdateResult<unknown> | T>
     deleteById<T>(id: string, tableName: string, opts?: UpdateOptions): Promise<DeleteResult<unknown> | DeleteResult<T>>
+    tableList(): Promise<ArrayResult<string>>
   }
 
-  export interface Student {
+  interface Base {
     id: string
-    first_name: string
-    last_name: string
-    middle_name: string
-    gender: Gender
     created_at: _Date
     updated_at: _Date
   }
 
-  export type InputStudent = Omit<Student, 'id' | 'created_at' | 'updated_at'>
+  export interface Student extends Base {
+    first_name: string
+    last_name: string
+    middle_name: string
+    year_level: string
+    gender: Gender
+  }
 
-  export interface Enrollment {
-    id: string
+  export type InputStudent = Omit<Student, OmitInputTypes>
+
+  export interface Enrollment extends Base {
     student_id: string
     course_id: string
-    enrolled_on: _Date
   }
 
-  export type InputEnrollment = Omit<Enrollment, 'id'>
+  export type InputEnrollment = Omit<Enrollment, OmitInputTypes>
 
-  export interface Teacher {
-    id: string
+  export interface Teacher extends Base {
     first_name: string
     last_name: string
     middle_name: string
-    department: string
+    department_id: string
     gender: Gender
-    created_at: _Date
-    updated_at: _Date
   }
 
-  export type InputTeacher = Omit<Teacher, 'id' | 'created_at' | 'updated_at'>
+  export type InputTeacher = Omit<Teacher, OmitInputTypes>
 
-  export interface Course {
-    id: string
-    name: string
+  export interface Course extends Base {
+    course_name: string
     credits: number
   }
 
-  export type InputCourse = Omit<Course, 'id'>
+  export type InputCourse = Omit<Course, OmitInputTypes>
 
-  export interface Department {
-    id: string
+  export interface Department extends Base {
     name: string
   }
 
-  export type InputDepartment = Omit<Department, 'id'>
+  export type InputDepartment = Omit<Department, OmitInputTypes>
 
-  export interface Class {
-    id: string
+  export interface Class extends Base {
     course_id: string
     teacher_id: string
     room_number: string
@@ -76,7 +72,9 @@ declare global {
     end_time: _Date
   }
 
-  export type InputClass = Omit<Class, 'id'>
+  export type InputClass = Omit<Class, OmitInputTypes>
+
+  export type Data = Class & Department & Student & Enrollment & Course & Teacher
 
   var Bluebird: typeof _Bluebird
   var Query: RethinkQry
