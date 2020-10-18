@@ -6,5 +6,5 @@ import RethinkQuery from './utils/RethinkQuery'
  Make global variables here
 */
 global.Bluebird = Bluebird
-global.r = rethinkdbdash()
+global.r = rethinkdbdash({ silent: true })
 global.Query = new RethinkQuery()
