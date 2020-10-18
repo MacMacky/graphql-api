@@ -1,4 +1,3 @@
-import './modules'
 import createServer from './server'
 
 const start = async () => {
