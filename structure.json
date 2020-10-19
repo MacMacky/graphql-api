@@ -1,0 +1,41 @@
+{
+  "db": "university",
+  "tables": [
+    {
+      "name": "students",
+      "indexes": []
+    },
+    {
+      "name": "enrollment",
+      "indexes": [
+        "student_id",
+        "course_id"
+      ]
+    },
+    {
+      "name": "courses",
+      "indexes": []
+    },
+    {
+      "name": "classes",
+      "indexes": [
+        "course_id",
+        "teacher_id"
+      ]
+    },
+    {
+      "name": "teachers",
+      "indexes": [
+        "department_id"
+      ]
+    },
+    {
+      "name": "departments",
+      "indexes": []
+    },
+    {
+      "name": "someting",
+      "indexes": []
+    }
+  ]
+}
