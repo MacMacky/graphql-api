@@ -1,6 +1,6 @@
 import _Bluebird from 'bluebird'
 import { ReqlClient } from 'rethinkdbdash'
-import { InsertResult, UpdateOptions, DeleteResult, UpdateResult, ArrayResult } from 'rethinkdbdash/node_modules/@types/rethinkdb'
+import { InsertResult, UpdateOptions, DeleteResult, UpdateResult, ArrayResult, TableCreateResult, IndexCreateResult } from 'rethinkdbdash/node_modules/@types/rethinkdb'
 
 type Gender = 'male' | 'female' | 'unknown'
 type _Date = Date | string
@@ -13,9 +13,13 @@ declare global {
     findById<T>(id: string, tableName: string): Promise<T | null>
     findByIndex<T = unknown>(indices: string[] | string, index: string, tableName: string): Promise<ArrayResult<T>>
     findByFilter<T = unknown>(filterData: {} | Function, tableName: string, orderBy?: string): Promise<ArrayResult<T>>
+    table<T>(tableName: string, orderBy?: string): Promise<ArrayResult<T>>
     updateById<T>(id: string, data: {}, tableName: string, opts?: UpdateOptions): Promise<UpdateResult<unknown> | T>
     deleteById<T>(id: string, tableName: string, opts?: UpdateOptions): Promise<DeleteResult<unknown> | DeleteResult<T>>
     tableList(): Promise<ArrayResult<string>>
+    indexList(tableName: string): Promise<ArrayResult<string>>
+    tableCreate(tableName: string): Promise<TableCreateResult>
+    indexCreate(tableName: string, index: string): Promise<IndexCreateResult>
   }
 
   interface Base {
