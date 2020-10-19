@@ -29,6 +29,14 @@ class RethinkQuery implements RethinkQry {
   }
 
 
+  table<T>(tableName: string, orderBy = 'created_at') {
+    return r.table<T>(tableName)
+      .orderBy(r.asc(orderBy))
+      .coerceTo('array')
+      .run()
+  }
+
+
   updateById(id: string, data: {} | Function, tableName: string, opts: UpdateOptions = { returnChanges: true }) {
     return r.table(tableName)
       .get(id)
@@ -46,6 +54,25 @@ class RethinkQuery implements RethinkQry {
   tableList() {
     return r
       .tableList()
+      .run()
+  }
+
+  indexList(tableName: string) {
+    return r
+      .table(tableName)
+      .indexList()
+      .run()
+  }
+
+  tableCreate(tableName: string) {
+    return r
+      .tableCreate(tableName)
+      .run()
+  }
+
+  indexCreate(tableName: string, index: string) {
+    return r.table(tableName)
+      .indexCreate(index)
       .run()
   }
 }
