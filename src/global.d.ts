@@ -76,9 +76,18 @@ declare global {
 
   export type Data = Class & Department & Student & Enrollment & Course & Teacher
 
+
+  export interface Table {
+    name: string
+    indexes: string[]
+  }
+
   var Bluebird: typeof _Bluebird
   var Query: RethinkQry
   var r: ReqlClient
+  var path: typeof import('path')
+  var fs: typeof import('fs').promises
+  var log: (...args: (any | string)[]) => void
 }
 
 
