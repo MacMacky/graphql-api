@@ -1,14 +1,11 @@
 import createServer from './server'
+import initDB from './db'
 
-const start = async () => {
-  try {
-    const server = await createServer()
-    const { url } = await server.listen();
-    console.log(`GraphQL Server listening at: ${url}`)
-  } catch (e) {
+createServer()
+  .then(server => initDB().then(_ => server))
+  .then(server => server.listen())
+  .then(info => console.log(`GraphQL Service listening at ${info.url}`))
+  .catch(e => {
     console.log(e);
     process.exit(1)
-  }
-}
-
-start()
+  })
