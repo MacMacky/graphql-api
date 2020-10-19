@@ -9,33 +9,41 @@
       "name": "enrollment",
       "indexes": [
         "student_id",
-        "course_id"
+        "course_id",
+        "created_at",
+        "updated_at"
       ]
     },
     {
       "name": "courses",
-      "indexes": []
+      "indexes": [
+        "created_at",
+        "updated_at"
+      ]
     },
     {
       "name": "classes",
       "indexes": [
         "course_id",
-        "teacher_id"
+        "teacher_id",
+        "created_at",
+        "updated_at"
       ]
     },
     {
       "name": "teachers",
       "indexes": [
-        "department_id"
+        "department_id",
+        "created_at",
+        "updated_at"
       ]
     },
     {
       "name": "departments",
-      "indexes": []
-    },
-    {
-      "name": "someting",
-      "indexes": []
+      "indexes": [
+        "created_at",
+        "updated_at"
+      ]
     }
   ]
 }
