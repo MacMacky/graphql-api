@@ -8,7 +8,7 @@ import RethinkQuery from './utils/RethinkQuery'
  Make global variables here
 */
 global.Bluebird = Bluebird
-global.r = rethinkdbdash({ silent: true })
+global.r = rethinkdbdash({ silent: true, db: 'university' })
 global.Query = new RethinkQuery()
 global.path = path
 global.fs = _fs.promises
