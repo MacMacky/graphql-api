@@ -40,7 +40,7 @@ declare global {
 
   export interface Enrollment extends Base {
     student_id: string
-    course_id: string
+    subject_id: string
   }
 
   export type InputEnrollment = Omit<Enrollment, OmitInputTypes>
@@ -69,7 +69,7 @@ declare global {
   export type InputDepartment = Omit<Department, OmitInputTypes>
 
   export interface Class extends Base {
-    course_id: string
+    subject_id: string
     teacher_id: string
     room_number: string
     start_time: _Date
@@ -80,6 +80,13 @@ declare global {
 
   export type Data = Class & Department & Student & Enrollment & Course & Teacher
 
+  export interface Subject extends Base {
+    id: string
+    subject_name: string
+    credits: number
+  }
+
+  export type InputSubject = Omit<Subject, OmitInputTypes>
 
   export interface Table {
     name: string
