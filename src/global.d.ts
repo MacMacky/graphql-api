@@ -5,7 +5,7 @@ import { InsertResult, UpdateOptions, DeleteResult, UpdateResult, ArrayResult, T
 type Gender = 'male' | 'female' | 'unknown'
 type _Date = Date | string
 type OmitInputTypes = 'id' | 'created_at' | 'updated_at'
-
+type TableTypes = 'courses' | 'subjects' | 'classes' | 'enrollment' | 'departments' | 'teachers' | 'students'
 
 declare global {
   export interface RethinkQry {
@@ -20,6 +20,10 @@ declare global {
     indexList(tableName: string): Promise<ArrayResult<string>>
     tableCreate(tableName: string): Promise<TableCreateResult>
     indexCreate(tableName: string, index: string): Promise<IndexCreateResult>
+  }
+
+  type Tables = {
+    readonly [K in TableTypes]: K
   }
 
   interface Base {
