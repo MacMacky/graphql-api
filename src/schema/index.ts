@@ -25,28 +25,29 @@ export default gql`
     year_level: String
     created_at: Date
     updated_at: Date
+    course: Course
   }
 
   input InputStudent {
     first_name: String!
     last_name: String!
     middle_name: String
-    gender: Gender
+    gender: Gender = UNKNOWN
   }
 
   type Enrollment implements Base {
     id: ID!
     student_id: String!
-    course_id: String!
+    subject_id: String!
     created_at: Date
     updated_at: Date
     student: Student
-    course: Course
+    subject: Subject
   }
 
   input InputEnrollment {
     student_id: String!
-    course_id: String!
+    subject_id: String!
   }
 
   type Teacher implements Base {
@@ -56,7 +57,7 @@ export default gql`
     middle_name: String
     department_id: String!
     gender: Gender
-    created_at: Date
+    created_at: Date 
     updated_at: Date
   }
 
@@ -65,12 +66,21 @@ export default gql`
     last_name: String!
     middle_name: String
     department_id: String!
-    gender: Gender
+    gender: Gender = UNKNOWN
   }
 
   type Course implements Base {
     id: ID!
     course_name: String!
+    year_level: String!
+    created_at: Date
+    updated_at: Date
+  }
+
+  
+  type Subject implements Base {
+    id: ID!
+    subject_name: String!
     credits: Int
     created_at: Date
     updated_at: Date
@@ -85,19 +95,19 @@ export default gql`
 
   type Class implements Base  {
     id: ID!
-    course_id: String!
+    subject_id: String!
     teacher_id: String!
     room_number: String
     start_time: Date
     end_time: Date
-    course: Course
+    subject: Subject
     teacher: Teacher
     created_at: Date
     updated_at: Date
   }
 
   input InputClass {
-    course_id: String!
+    subject_id: String!
     teacher_id: String!
     room_number: String
     start_time: Date
@@ -111,6 +121,7 @@ export default gql`
     teachers: [Teacher]!
     departments: [Department]!
     courses: [Course]!
+    subjects: [Subject]!
   }
 
   type Mutation {
