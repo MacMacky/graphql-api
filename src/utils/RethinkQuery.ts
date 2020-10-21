@@ -7,22 +7,22 @@ class RethinkQuery implements RethinkQry {
       .run()
   }
 
-  findById(id: string, tableName: string) {
-    return r.table(tableName)
+  findById<T>(id: string, tableName: string) {
+    return r.table<T>(tableName)
       .get(id)
       .run()
   }
 
-  findByFilter(filterData: {} | Function, tableName: string, orderBy = 'created_at') {
-    return r.table(tableName)
+  findByFilter<T = unknown>(filterData: {} | Function, tableName: string, orderBy = 'created_at') {
+    return r.table<T>(tableName)
       .orderBy(r.desc(orderBy))
       .filter(filterData)
       .coerceTo('array')
       .run()
   }
 
-  findByIndex(indices: string[] | string, index: string, tableName: string) {
-    return r.table(tableName)
+  findByIndex<T = unknown>(indices: string[] | string, index: string, tableName: string) {
+    return r.table<T>(tableName)
       .getAll(indices, { index })
       .coerceTo('array')
       .run()
