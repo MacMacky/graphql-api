@@ -34,6 +34,7 @@ declare global {
     middle_name: string
     year_level: string
     gender: Gender
+    course_id: string
   }
 
   export type InputStudent = Omit<Student, OmitInputTypes>

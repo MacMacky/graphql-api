@@ -25,6 +25,7 @@ export default gql`
     year_level: String
     created_at: Date
     updated_at: Date
+    course_id: String!
     course: Course
   }
 
