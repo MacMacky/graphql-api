@@ -1,11 +1,15 @@
 export default {
   __resolveType: (item: Data) => {
-    if (item.teacher_id && item.course_id) {
+    if (item.teacher_id && item.subject_id) {
       return 'Class'
     }
 
-    if (item.course_id && item.student_id) {
+    if (item.subject_id && item.student_id) {
       return 'Enrollment'
+    }
+
+    if (item.subject_name) {
+      return 'Subject'
     }
 
     if (item.department_id) {
