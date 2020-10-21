@@ -77,9 +77,6 @@ declare global {
   }
 
   export type InputClass = Omit<Class, OmitInputTypes>
-
-  export type Data = Class & Department & Student & Enrollment & Course & Teacher
-
   export interface Subject extends Base {
     id: string
     subject_name: string
@@ -87,6 +84,8 @@ declare global {
   }
 
   export type InputSubject = Omit<Subject, OmitInputTypes>
+
+  export type Data = Class & Department & Student & Enrollment & Course & Teacher & Subject
 
   export interface Table {
     name: string
