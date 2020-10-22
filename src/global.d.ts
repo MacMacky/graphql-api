@@ -9,7 +9,7 @@ type TableTypes = 'courses' | 'subjects' | 'classes' | 'enrollment' | 'departmen
 
 declare global {
   export interface RethinkQry {
-    create(data: {} | any, tableName: string): Promise<InsertResult<unknown>>
+    create<T extends object>(data: {} | any, tableName: string): Promise<T | null>
     findById<T>(id: string, tableName: string): Promise<T | null>
     findByIndex<T = unknown>(indices: string[] | string, index: string, tableName: string): Promise<ArrayResult<T>>
     findByFilter<T = unknown>(filterData: {} | Function, tableName: string, orderBy?: string): Promise<ArrayResult<T>>
@@ -24,6 +24,12 @@ declare global {
 
   type Tables = {
     readonly [K in TableTypes]: K
+  }
+
+  export interface Context {
+    utils: {
+      now(): string
+    }
   }
 
   interface Base {
