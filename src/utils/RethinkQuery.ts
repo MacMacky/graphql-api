@@ -1,10 +1,16 @@
 import { UpdateOptions } from 'rethinkdb'
 
 class RethinkQuery implements RethinkQry {
-  create<T = any>(data: T, tableName: string) {
+  create<T extends object>(data: T, tableName: string) {
     return r.table(tableName)
       .insert(data)
       .run()
+      .then(result => {
+        if (result && result.generated_keys?.length) {
+          return { ...data }
+        }
+        return null
+      })
   }
 
   findById<T>(id: string, tableName: string) {
