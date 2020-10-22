@@ -60,6 +60,7 @@ export default gql`
     gender: Gender
     created_at: Date 
     updated_at: Date
+    department: Department
   }
 
   input InputTeacher {
