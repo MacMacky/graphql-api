@@ -1,7 +1,11 @@
 import { MockList, gql } from 'apollo-server';
 import { createTestClient } from 'apollo-server-testing'
 import createServer from '../server'
-import { GET_STUDENTS } from './queries';
+import {
+  GET_STUDENTS, GET_CLASSES,
+  GET_COURSES, GET_DEPARTMENTS,
+  GET_ENROLLMENT, GET_SUBJECTS, GET_TEACHERS
+} from './queries';
 
 
 
@@ -15,8 +19,14 @@ describe('test mock api graphql', () => {
       Boolean: () => false,
       ID: () => '1',
       Float: () => 1.5,
+      Date: () => new Date(),
       Query: () => ({
-        students: () => new MockList(5)
+        students: () => new MockList(5),
+        classes: () => new MockList(10),
+        courses: () => new MockList(15),
+        departments: () => new MockList(5),
+        teachers: () => new MockList(20),
+        subjects: () => new MockList(10)
       })
     }
 
@@ -24,8 +34,6 @@ describe('test mock api graphql', () => {
     query = q
     mutate = m
   })
-
-
 
   it('will have return 5 students', async () => {
     let response = await query({
@@ -35,13 +43,46 @@ describe('test mock api graphql', () => {
     expect(response.data!.result).toHaveLength(5)
   })
 
-  // it('should have a student with an id of `1`', async () => {
-  //   let response = await query({
-  //     query: GET_STUDENTS
-  //   })
+  it('should give us return 10 classes', async () => {
+    let response = await query({
+      query: GET_CLASSES
+    })
+    expect(response.data!.result).toHaveLength(10)
+  })
 
-  //   expect(response.data!.result.pop().id).toBe('1')
-  // })
+  it('should give us return 15 courses', async () => {
+    let response = await query({
+      query: GET_COURSES
+    })
+
+    expect(response.data!.result).toHaveLength(15)
+  })
+
+
+  it('should give us return 5 departments', async () => {
+    let response = await query({
+      query: GET_DEPARTMENTS
+    })
+
+    expect(response.data!.result).toHaveLength(5)
+  })
+
+  it('should give us return 5 teachers', async () => {
+    let response = await query({
+      query: GET_TEACHERS
+    })
+
+    expect(response.data!.result).toHaveLength(20)
+  })
+
+  it('should give us return 5 subjects', async () => {
+    let response = await query({
+      query: GET_SUBJECTS
+    })
+
+    expect(response.data!.result).toHaveLength(10)
+  })
+
 
 
 
