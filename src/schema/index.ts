@@ -2,6 +2,28 @@ import { gql } from 'apollo-server'
 
 
 export default gql`
+  type Query {
+    students: [Student]!
+    classes: [Class]!
+    enrollments: [Enrollment]!
+    teachers: [Teacher]!
+    departments: [Department]!
+    courses: [Course]!
+    subjects: [Subject]!
+  }
+
+  type Mutation {
+    createStudent(input: InputStudent): Student
+    updateStudent(id: ID!, input: InputStudent): Student
+    enrollClass(input: InputEnrollment!): Enrollment
+    createTeacher(input: InputTeacher!) : Teacher
+    createClass(input: InputClass!): Class
+  }
+
+  type Subscription {
+      newStudent: Student
+  }
+
   scalar Date
 
   enum Gender {
@@ -114,23 +136,5 @@ export default gql`
     room_number: String
     start_time: Date
     end_time: Date
-  }
-
-  type Query {
-    students: [Student]!
-    classes: [Class]!
-    enrollments: [Enrollment]!
-    teachers: [Teacher]!
-    departments: [Department]!
-    courses: [Course]!
-    subjects: [Subject]!
-  }
-
-  type Mutation {
-    createStudent(input: InputStudent): Student
-    updateStudent(id: ID!, input: InputStudent): Student
-    enrollClass(input: InputEnrollment!): Enrollment
-    createTeacher(input: InputTeacher!) : Teacher
-    createClass(input: InputClass!): Class
   }
 `

@@ -3,11 +3,15 @@ import { UpdateOptions } from 'rethinkdb'
 class RethinkQuery implements RethinkQry {
   create<T extends object>(data: T, tableName: string) {
     return r.table(tableName)
-      .insert(data)
+      .insert({
+        ...data,
+        created_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
       .run()
       .then(result => {
         if (result && result.generated_keys?.length) {
-          return { ...data }
+          return { ...data, id: result.generated_keys.pop() }
         }
         return null
       })
@@ -79,6 +83,12 @@ class RethinkQuery implements RethinkQry {
   indexCreate(tableName: string, index: string) {
     return r.table(tableName)
       .indexCreate(index)
+      .run()
+  }
+
+  changes<T>(tableName: string, opts = { includeTypes: true }) {
+    return r.table<T>(tableName)
+      .changes(opts)
       .run()
   }
 }

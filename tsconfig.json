@@ -61,9 +61,11 @@
     /* Advanced Options */
     "skipLibCheck": true, /* Skip type checking of declaration files. */
     "forceConsistentCasingInFileNames": true, /* Disallow inconsistently-cased references to the same file. */
-    "watch": true
+    "watch": true,
+    "noEmitOnError": false
   },
   "exclude": [
+    "./knexfile.ts",
     "node_modules"
   ]
 }

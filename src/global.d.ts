@@ -1,6 +1,7 @@
 import _Bluebird from 'bluebird'
 import { ReqlClient } from 'rethinkdbdash'
 import { InsertResult, UpdateOptions, DeleteResult, UpdateResult, ArrayResult, TableCreateResult, IndexCreateResult } from 'rethinkdbdash/node_modules/@types/rethinkdb'
+import { PubSub } from 'apollo-server'
 
 type Gender = 'male' | 'female' | 'unknown'
 type _Date = Date | string
@@ -27,6 +28,7 @@ declare global {
   }
 
   export interface Context {
+    pubSub: PubSub
     utils: {
       now(): string
     }
